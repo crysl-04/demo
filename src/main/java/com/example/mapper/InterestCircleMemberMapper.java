@@ -1,7 +1,11 @@
 package com.example.mapper;
 
 import com.example.entity.InterestCircleMember;
+import com.example.entity.InterestCirclePost;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 @Mapper
 public interface InterestCircleMemberMapper {
@@ -18,4 +22,6 @@ public interface InterestCircleMemberMapper {
             "VALUES (#{circleId}, #{userId},#{nickname})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(InterestCircleMember member);
+
+
 }

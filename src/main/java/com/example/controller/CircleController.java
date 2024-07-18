@@ -3,10 +3,13 @@ package com.example.controller;
 import com.example.entity.InterestCircle;
 import com.example.entity.InterestCircleMember;
 import com.example.entity.InterestCirclePost;
+import com.example.mapper.InterestCircleMemberMapper;
+import com.example.mapper.InterestCirclePostMapper;
 import com.example.service.InterestCircleService;
 import com.example.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,10 @@ public class CircleController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private InterestCirclePostMapper interestCirclePostMapper;
+    @Autowired
+    private InterestCircleMemberMapper interestCircleMemberMapper;
 
     /**
      * 获取所有兴趣圈列表
@@ -100,6 +107,29 @@ public class CircleController {
         model.addAttribute("posts", posts);
         return "circle_detail";
     }
+//    @GetMapping("/circles/{id}")
+//    public String getCircleDetail(@PathVariable("id") int circleId,
+//                                  @RequestParam(defaultValue = "1") int page,
+//                                  @RequestParam(defaultValue = "3") int size,
+//                                  Model model) {
+//        InterestCircle circle = interestCircleService.getCircleById(circleId);
+//        Page<InterestCirclePost> postsPage = interestCircleService.getPostsByCircleId(circleId, page, size);
+//        Page<String> membersPage = interestCircleService.getMembersByCircleId(circleId, page, size);
+//
+//        model.addAttribute("circle", circle);
+//        model.addAttribute("members", membersPage.getContent()); // 当前页的成员列表
+//        model.addAttribute("posts", postsPage.getContent());
+//        model.addAttribute("currentMembersPage", membersPage.getNumber() + 1); // 当前成员列表页码（从1开始）
+//        model.addAttribute("currentPostsPage", postsPage.getNumber() + 1); // 当前帖子列表页码（从1开始）
+//        model.addAttribute("membersPageSize", membersPage.getSize()); // 成员列表每页大小
+//        model.addAttribute("postsPageSize", postsPage.getSize()); // 帖子列表每页大小
+//        model.addAttribute("totalMembersPages", membersPage.getTotalPages()); // 总成员列表页数
+//        model.addAttribute("totalPostsPages", postsPage.getTotalPages()); // 总帖子列表页数
+//
+//        return "circle_detail";
+//    }
+
+
 
     /**
      * 显示加入兴趣圈的表单

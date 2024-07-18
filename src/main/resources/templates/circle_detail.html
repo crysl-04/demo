@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interest Circle Detail</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/circle_detail.css">
     <div class="navbar">
         <span>Welcome, <span th:text="${session.username}"></span>!</span>
         <a href="/logout">Logout</a>
@@ -14,40 +14,43 @@
 <h1 th:text="${circle.name}">Circle Name</h1>
 
 <div id="circle-detail-container">
-    <p th:text="${circle.description}">Circle Description</p>
+    <div class="grid-container">
+        <div class="grid-item description">
+            <h2>Description</h2>
+            <p th:text="${circle.description}">Circle Description</p>
+        </div>
+        <div class="grid-item members">
+            <h2>Members</h2>
+            <ul>
+                <li th:each="member : ${members}">
+                    <p th:text="${member}">User Name</p>
+                </li>
+            </ul>
+        </div>
+        <div class="grid-item posts">
+            <h2>Posts</h2>
+            <ul>
+                <li th:each="post : ${posts}">
+                    <p th:text="${post.content}">Post Content</p>
+                    <small th:text="${post.createdAt}">Created At</small>
+                </li>
+            </ul>
+        </div>
+        <div class="grid-item actions">
+            <h3>Join Circle</h3>
+            <form action="#" th:action="@{/circles/joinForm/{circleId}(circleId=${circle.id})}" method="get">
+                <button type="submit">Join</button>
+            </form>
+
+            <h3>Add Post</h3>
+            <form action="#" th:action="@{/circles/post/{circleId}(circleId=${circle.id})}" method="post">
+                <textarea name="content" rows="4" cols="50" required></textarea><br>
+                <button type="submit">Post</button>
+            </form>
+        </div>
+    </div>
 </div>
 
-<h2>Members</h2>
-<ul>
-    <li th:each="member : ${members}">
-<!--        <span th:text="${member.username}">User Name</span>-->
-        <p th:text="${member}">User Name</p>
-    </li>
-</ul>
-
-<h2>Posts</h2>
-<ul>
-    <li th:each="post : ${posts}">
-        <p th:text="${post.content}">Post Content</p>
-        <small th:text="${post.createdAt}">Created At</small>
-    </li>
-</ul>
-
-<h3>Join Circle</h3>
-<form action="#" th:action="@{/circles/joinForm/{circleId}(circleId=${circle.id})}" method="get">
-    <button type="submit">Join</button>
-</form>
-
-</form>
-
-<h3>Add Post</h3>
-<form action="#" th:action="@{/circles/post/{circleId}(circleId=${circle.id})}" method="post">
-    <textarea name="content" rows="4" cols="50" required></textarea><br>
-    <button type="submit">Post</button>
-</form>
-
-
 <a href="/circles">Back to Interest Circles</a>
-
 </body>
 </html>

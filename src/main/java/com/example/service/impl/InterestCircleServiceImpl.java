@@ -5,8 +5,11 @@ import com.example.entity.InterestCirclePost;
 import com.example.mapper.InterestCircleMapper;
 import com.example.entity.InterestCircle;
 import com.example.mapper.InterestCircleMemberMapper;
+import com.example.mapper.InterestCirclePostMapper;
 import com.example.service.InterestCircleService;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +19,12 @@ public class InterestCircleServiceImpl implements InterestCircleService {
 
     @Autowired
     private InterestCircleMapper interestCircleMapper;
+
     @Autowired
     private InterestCircleMemberMapper interestCircleMemberMapper;
+
+    @Autowired
+    private InterestCirclePostMapper interestCirclePostMapper;
 
     @Override
     public List<InterestCircle> getAllCircles() {
@@ -67,4 +74,17 @@ public class InterestCircleServiceImpl implements InterestCircleService {
     public InterestCircleMember findByNickname(String nickname) {
         return interestCircleMemberMapper.findByNickname(nickname);
     }
+
+//    @Override
+//    public Page<InterestCirclePost> getPostsByCircleId(int circleId, int page, int size) {
+//        Pageable pageable = PageRequest.of(page - 1, size); // 将页面从1开始转换为从0开始
+//        return interestCircleMapper.getPostsByCircleId(circleId, pageable);
+//    }
+//
+//    @Override
+//    public Page<String> getMembersByCircleId(int circleId, int page, int size) {
+//        Pageable pageable = PageRequest.of(page - 1, size); // 将页面从1开始转换为从0开始
+//        return interestCircleMapper.getMembersByCircleId(circleId, pageable);
+//    }
+
 }

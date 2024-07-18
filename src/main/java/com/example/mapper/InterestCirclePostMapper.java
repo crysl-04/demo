@@ -2,6 +2,11 @@ package com.example.mapper;
 
 import com.example.entity.InterestCirclePost;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 @Mapper
 public interface InterestCirclePostMapper {
@@ -12,5 +17,6 @@ public interface InterestCirclePostMapper {
             "VALUES (#{circleId}, #{userId}, #{content}, #{createdAt})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(InterestCirclePost post);
+
 
 }
