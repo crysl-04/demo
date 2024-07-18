@@ -26,7 +26,6 @@ public class InterestCirclePost {
     private Timestamp createdAt;
 
     // Getters and setters
-    // Constructors
 
     public Long getId() {
         return id;
@@ -68,11 +67,19 @@ public class InterestCirclePost {
         this.createdAt = createdAt;
     }
 
+    public Long getUserId(){
+        return user!=null?user.getId():null;
+    }
+
     public void setUserId(Long userId) {
         if (this.user == null) {
             this.user = new User();
         }
         this.user.setId(userId);
+    }
+
+    public Integer getCircleId(){
+        return interestCircle != null ? interestCircle.getId() : null;
     }
 
     public void setCircleId(int circleId) {

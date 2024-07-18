@@ -1,14 +1,11 @@
 package com.example.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-//import org.springframework.security.core.GrantedAuthority;
+import jakarta.persistence.*;
 
 import java.util.Collection;
 
-@Entity //User 类将会被映射到数据库中的表结构。每个实例对象代表数据库中的一行记录，每个类属性代表数据库表中的一个列。
+@Entity//User 类将会被映射到数据库中的表结构。每个实例对象代表数据库中的一行记录，每个类属性代表数据库表中的一个列。
+@Table(name = "users")
 public class User {
 
     @Id //该属性为实体的唯一标识符
@@ -58,10 +55,4 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        // 返回用户的权限集合，例如角色列表
-//        return null; // 需要根据实际情况实现
-//    }
-
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController //标记一个类为 RESTful web 服务的控制器  是 @Controller 和 @ResponseBody 的组合，简化了创建 RESTful web 服务控制器的配置
+@RestController
 @RequestMapping("/users")
 public class UserController {
 

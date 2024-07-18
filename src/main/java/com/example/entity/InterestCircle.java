@@ -3,6 +3,7 @@ package com.example.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "interest_circle")
 public class InterestCircle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

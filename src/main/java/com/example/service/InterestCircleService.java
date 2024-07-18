@@ -17,5 +17,4 @@ public interface InterestCircleService {
     void addPost(InterestCirclePost post);
     List<String> getAllNicknames(int circleId);
     InterestCircleMember findByNickname(String nickname);
-
     }

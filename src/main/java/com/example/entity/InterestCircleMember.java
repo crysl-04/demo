@@ -1,8 +1,6 @@
 package com.example.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 import java.sql.Timestamp;
 
@@ -10,11 +8,11 @@ import java.sql.Timestamp;
 @Table(name = "interest_circle_member")
 public class InterestCircleMember {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //唯一标识符
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //使用数据库的自增主键生成策略为 id 字段生成值
     private Long id;
 
-    @ManyToOne
+    @ManyToOne // Member和Circle存在多对一的关系
     @JoinColumn(name = "circle_id", referencedColumnName = "id")
     private InterestCircle interestCircle;
 

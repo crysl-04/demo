@@ -41,11 +41,11 @@
 </form>
 
 <h3>Add Post</h3>
-<form action="#" th:action="@{/circles/{id}/post(id=${circle.id})}" method="post">
-<!--    <input type="hidden" name="userId" value="/* User ID from session or context */">-->
+<form action="#" th:action="@{/circles/post/{circleId}(circleId=${circle.id})}" method="post">
     <textarea name="content" rows="4" cols="50" required></textarea><br>
     <button type="submit">Post</button>
 </form>
+
 
 <a href="/circles">Back to Interest Circles</a>
 

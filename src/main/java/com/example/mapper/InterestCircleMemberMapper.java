@@ -14,8 +14,6 @@ public interface InterestCircleMemberMapper {
     @Select("SELECT * FROM interest_circle_member WHERE user_id = #{userId} AND circle_id = #{circleId}")
     InterestCircleMember existsByUserAndCircle(@Param("userId") Long userId, @Param("circleId") int circleId);
 
-
-
     @Insert("INSERT INTO interest_circle_member (circle_id, user_id, nickname) " +
             "VALUES (#{circleId}, #{userId},#{nickname})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
