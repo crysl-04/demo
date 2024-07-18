@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interest Circles</title>
+    <link rel="stylesheet" href="/css/circle.css">
+    <div class="navbar">
+        <span>Welcome, <span th:text="${session.username}"></span>!</span>
+        <a href="/logout">Logout</a>
+    </div>
+</head>
+<body>
+<h1>Interest Circles</h1>
+
+<div class="container">
+    <!-- 兴趣圈列表显示区域 -->
+    <div id="circle-list-container">
+        <h2>Interest Circles List</h2>
+        <div id="circle-list">
+            <ul>
+                <li th:each="circle : ${circles}">
+                    <a th:href="@{/circles/{id}(id=${circle.id})}" th:text="${circle.name}">Circle Name</a>
+                    <p th:text="${circle.description}">Circle Description</p>
+                    <a th:href="@{/circles/edit/{id}(id=${circle.id})}">Edit</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 兴趣圈创建表单 -->
+    <div id="create-circle-container">
+        <h2>Create New Interest Circle</h2>
+        <form action="/circles/create" method="post">
+            <label for="circleName">Circle Name:</label>
+            <input type="text" id="circleName" name="circleName" required><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
+            <button type="submit">Create Circle</button>
+        </form>
+    </div>
+</div>
+
+
+
+</body>
+</html>

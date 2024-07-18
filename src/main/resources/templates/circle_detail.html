@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interest Circle Detail</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <div class="navbar">
+        <span>Welcome, <span th:text="${session.username}"></span>!</span>
+        <a href="/logout">Logout</a>
+    </div>
+</head>
+<body>
+<h1 th:text="${circle.name}">Circle Name</h1>
+
+<div id="circle-detail-container">
+    <p th:text="${circle.description}">Circle Description</p>
+</div>
+
+<h2>Members</h2>
+<ul>
+    <li th:each="member : ${members}">
+<!--        <span th:text="${member.username}">User Name</span>-->
+        <p th:text="${member}">User Name</p>
+    </li>
+</ul>
+
+<h2>Posts</h2>
+<ul>
+    <li th:each="post : ${posts}">
+        <p th:text="${post.content}">Post Content</p>
+        <small th:text="${post.createdAt}">Created At</small>
+    </li>
+</ul>
+
+<h3>Join Circle</h3>
+<form action="#" th:action="@{/circles/joinForm/{circleId}(circleId=${circle.id})}" method="get">
+    <button type="submit">Join</button>
+</form>
+
+</form>
+
+<h3>Add Post</h3>
+<form action="#" th:action="@{/circles/{id}/post(id=${circle.id})}" method="post">
+<!--    <input type="hidden" name="userId" value="/* User ID from session or context */">-->
+    <textarea name="content" rows="4" cols="50" required></textarea><br>
+    <button type="submit">Post</button>
+</form>
+
+<a href="/circles">Back to Interest Circles</a>
+
+</body>
+</html>

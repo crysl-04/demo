@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Join Circle</title>
+</head>
+<body>
+<h1>Join Circle</h1>
+<form action="#" th:action="@{/circles/{id}/join(id=${circleId})}" method="post">
+    <label for="nickname">Nickname:</label>
+    <input type="text" id="nickname" name="nickname" required>
+    <button type="submit">Join</button>
+</form>
+</body>
+</html>

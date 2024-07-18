@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Interest Circle</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Edit Interest Circle</h1>
+
+<div id="edit-circle-container">
+    <form th:action="@{/circles/update}" method="post">
+        <input type="hidden" th:value="${circle.id}" name="id"/>
+        <label for="circleName">Circle Name:</label>
+        <input type="text" id="circleName" name="circleName" th:value="${circle.name}" required><br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" cols="50" required
+                  th:text="${circle.description}"></textarea><br>
+        <button type="submit">Update Circle</button>
+    </form>
+</div>
+
+</body>
+</html>
