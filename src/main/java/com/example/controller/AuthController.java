@@ -62,12 +62,12 @@ public class AuthController {
     /**
      * 处理登录请求
      * @param user 用户对象，包含登录信息
-     * @param model 模型对象，用于传递数据到视图
+//     * @param model 模型对象，用于传递数据到视图
      * @param session HttpSession 对象，用于管理会话
      * @return 视图名称
      */
     @PostMapping("/login")
-    public String processLoginForm(@ModelAttribute("user1") User user, Model model,HttpSession session) {
+    public String processLoginForm(@ModelAttribute("user1") User user,HttpSession session) {
         // 查找数据库中是否存在该用户
         User foundUser = userService.findByName(user.getUsername());
 
@@ -78,6 +78,7 @@ public class AuthController {
         // 用户登录成功，将用户名存储在会话中
         session.setAttribute("user", foundUser);
         session.setAttribute("username", foundUser.getUsername());
+        session.setAttribute("userid", foundUser.getId());
 
         return "redirect:/?loginSuccess=true";
     }

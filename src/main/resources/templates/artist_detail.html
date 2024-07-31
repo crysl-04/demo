@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Detail</title>
+    <link rel="stylesheet" href="/css/artist_detail.css">
+</head>
+<body>
+<div class="navbar">
+    <span>Welcome, <span th:text="${session.username}"></span>!</span>
+    <a href="/logout">Logout</a>
+</div>
+
+<div id="artist-detail-container">
+    <h1 th:text="${artist.name}">Artist Name</h1>
+    <div class="artist-info">
+        <p th:text="${artist.bio}">Artist Bio</p>
+        <p th:text="${artist.birthdate}">Artist Birthdate</p>
+    </div>
+    <a th:href="@{'/circles/' + ${circleId}}"><button>Back to Circle</button></a>
+</div>
+</body>
+</html>

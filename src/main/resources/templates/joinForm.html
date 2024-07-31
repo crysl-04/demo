@@ -1,16 +1,24 @@
+<!-- joinForm.html -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Join Circle</title>
-    <link rel="stylesheet" href="/css/style.css">
-
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 <h1>Join Circle</h1>
-<form action="#" th:action="@{/circles/{id}/join(id=${circleId})}" method="post">
-    <label for="nickname">Nickname:</label>
-    <input type="text" id="nickname" name="nickname" required>
+<form th:action="@{/circles/{circleId}/join(circleId=${circleId})}" method="post">
+    <input type="text" name="nickname" placeholder="Enter your nickname" required>
     <button type="submit">Join</button>
 </form>
+<div>
+    <!-- Display the message if exists -->
+    <p th:if="${message}" th:text="${message}"></p>
+</div>
+<div>
+    <!-- Add a button to go back to the circle details page -->
+    <a th:href="@{/circles/{circleId}(circleId=${circleId})}" class="button">Back to Circle Details</a>
+</div>
 </body>
 </html>

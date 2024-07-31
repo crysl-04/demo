@@ -1,11 +1,16 @@
 package com.example.controller;
 
+import com.example.entity.Artist;
 import com.example.entity.InterestCircle;
 import com.example.entity.InterestCircleMember;
-import com.example.entity.InterestCirclePost;
+//import com.example.entity.InterestCirclePost;
+import com.example.entity.Post;
 import com.example.mapper.InterestCircleMemberMapper;
-import com.example.mapper.InterestCirclePostMapper;
+//import com.example.mapper.InterestCirclePostMapper;
+import com.example.mapper.PostMapper;
+import com.example.service.ArtistService;
 import com.example.service.InterestCircleService;
+import com.example.service.PostService;
 import com.example.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +30,14 @@ public class CircleController {
     @Autowired
     private UserService userService;
     @Autowired
-    private InterestCirclePostMapper interestCirclePostMapper;
+    private PostMapper interestCirclePostMapper;
     @Autowired
     private InterestCircleMemberMapper interestCircleMemberMapper;
+
+    @Autowired
+    private ArtistService artistService;
+    @Autowired
+    private PostService postService;
 
     /**
      * 获取所有兴趣圈列表
@@ -101,35 +111,15 @@ public class CircleController {
     public String getCircleDetail(@PathVariable("id") int circleId, Model model) {
         InterestCircle circle = interestCircleService.getCircleById(circleId);
         List<String> members = interestCircleService.getAllNicknames(circleId);
-        List<InterestCirclePost> posts = interestCircleService.getPostsByCircleId(circleId);
+        List<Post> posts = postService.getPostsByCircleId(circleId);
+        List<Artist> artists = artistService.getArtistsByCircleId(circleId);
+
         model.addAttribute("circle", circle);
         model.addAttribute("members", members);
         model.addAttribute("posts", posts);
+        model.addAttribute("artists", artists);
         return "circle_detail";
     }
-//    @GetMapping("/circles/{id}")
-//    public String getCircleDetail(@PathVariable("id") int circleId,
-//                                  @RequestParam(defaultValue = "1") int page,
-//                                  @RequestParam(defaultValue = "3") int size,
-//                                  Model model) {
-//        InterestCircle circle = interestCircleService.getCircleById(circleId);
-//        Page<InterestCirclePost> postsPage = interestCircleService.getPostsByCircleId(circleId, page, size);
-//        Page<String> membersPage = interestCircleService.getMembersByCircleId(circleId, page, size);
-//
-//        model.addAttribute("circle", circle);
-//        model.addAttribute("members", membersPage.getContent()); // 当前页的成员列表
-//        model.addAttribute("posts", postsPage.getContent());
-//        model.addAttribute("currentMembersPage", membersPage.getNumber() + 1); // 当前成员列表页码（从1开始）
-//        model.addAttribute("currentPostsPage", postsPage.getNumber() + 1); // 当前帖子列表页码（从1开始）
-//        model.addAttribute("membersPageSize", membersPage.getSize()); // 成员列表每页大小
-//        model.addAttribute("postsPageSize", postsPage.getSize()); // 帖子列表每页大小
-//        model.addAttribute("totalMembersPages", membersPage.getTotalPages()); // 总成员列表页数
-//        model.addAttribute("totalPostsPages", postsPage.getTotalPages()); // 总帖子列表页数
-//
-//        return "circle_detail";
-//    }
-
-
 
     /**
      * 显示加入兴趣圈的表单
@@ -144,6 +134,7 @@ public class CircleController {
         return "joinForm";
     }
 
+
     /**
      * 加入指定的兴趣圈
      *
@@ -152,14 +143,31 @@ public class CircleController {
      * @param session 用于获取当前登录用户名 (可根据需求修改)
      * @return 重定向到兴趣圈详情页 (/circles/{id})
      */
-    @PostMapping("/circles/{id}/join")
-    public String joinCircle(@PathVariable("id") int circleId, @RequestParam("nickname") String nickname, HttpSession session) {
+    /**
+     * 加入指定的兴趣圈
+     *
+     * @param circleId 兴趣圈 ID
+     * @param nickname 用户昵称
+     * @param session 用于获取当前登录用户名 (可根据需求修改)
+     * @param model 用于存储传递到视图的数据
+     * @return 重定向到兴趣圈详情页 (/circles/{id})
+     */
+    @PostMapping("/circles/{circleId}/join")
+    public String joinCircle(@PathVariable("circleId") int circleId, @RequestParam("nickname") String nickname, HttpSession session, Model model) {
+        String username = session.getAttribute("username").toString();
+        Long userId = userService.findByName(username).getId();
+
+        // 检查用户是否已经是兴趣圈的成员
+        boolean isMember = interestCircleService.isMember(circleId, userId);
+        if (isMember) {
+            model.addAttribute("message", "您已经加入了这个兴趣圈，无需再次加入。");
+            model.addAttribute("circleId", circleId);
+            return "joinForm"; // 返回表单页面并提示信息
+        }
+
         InterestCircleMember newMember = new InterestCircleMember();
         newMember.setNickname(nickname);
         newMember.setCircleId(circleId);
-
-        String username = session.getAttribute("username").toString();
-        Long userId = userService.findByName(username).getId();
         newMember.setUserId(userId);
 
         interestCircleService.addMember(newMember);
@@ -167,21 +175,5 @@ public class CircleController {
         return "redirect:/circles/" + circleId;
     }
 
-    /**
-     * 处理添加帖子请求的方法
-     *
-     * @param circleId 兴趣圈 ID
-     * @param content 帖子内容
-     * @return 重定向到兴趣圈详情页 (/circles/{circleId})
-     */    @PostMapping("/circles/post/{circleId}")
-    public String addPost(@PathVariable int circleId, @RequestParam String content) {
-        InterestCirclePost post = new InterestCirclePost();
-        post.setCircleId(circleId);
-        post.setContent(content);
-
-        interestCircleService.addPost(post);
-
-        return "redirect:/circles/" + circleId;
-    }
 
 }

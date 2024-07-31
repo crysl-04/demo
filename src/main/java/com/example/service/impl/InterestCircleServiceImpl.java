@@ -1,11 +1,15 @@
 package com.example.service.impl;
 
+import com.example.entity.Artist;
 import com.example.entity.InterestCircleMember;
-import com.example.entity.InterestCirclePost;
+//import com.example.entity.InterestCirclePost;
+import com.example.entity.Post;
+import com.example.mapper.ArtistMapper;
 import com.example.mapper.InterestCircleMapper;
 import com.example.entity.InterestCircle;
 import com.example.mapper.InterestCircleMemberMapper;
-import com.example.mapper.InterestCirclePostMapper;
+//import com.example.mapper.InterestCirclePostMapper;
+import com.example.mapper.PostMapper;
 import com.example.service.InterestCircleService;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +28,11 @@ public class InterestCircleServiceImpl implements InterestCircleService {
     private InterestCircleMemberMapper interestCircleMemberMapper;
 
     @Autowired
-    private InterestCirclePostMapper interestCirclePostMapper;
+//    private InterestCirclePostMapper interestCirclePostMapper;
+    private PostMapper postMapper;
+
+    @Autowired
+    private ArtistMapper artistMapper;
 
     @Override
     public List<InterestCircle> getAllCircles() {
@@ -51,8 +59,13 @@ public class InterestCircleServiceImpl implements InterestCircleService {
         return interestCircleMapper.getMembersByCircleId(circleId);
     }
 
+//    @Override
+//    public List<InterestCirclePost> getPostsByCircleId(int circleId) {
+//        return interestCircleMapper.getPostsByCircleId(circleId);
+//    }
+
     @Override
-    public List<InterestCirclePost> getPostsByCircleId(int circleId) {
+    public List<Post> getPostsByCircleId(int circleId) {
         return interestCircleMapper.getPostsByCircleId(circleId);
     }
 
@@ -62,7 +75,7 @@ public class InterestCircleServiceImpl implements InterestCircleService {
     }
 
     @Override
-    public void addPost(InterestCirclePost post) {
+    public void addPost(Post post) {
         interestCircleMapper.addPost(post);
     }
 
@@ -73,6 +86,14 @@ public class InterestCircleServiceImpl implements InterestCircleService {
 
     public InterestCircleMember findByNickname(String nickname) {
         return interestCircleMemberMapper.findByNickname(nickname);
+    }
+
+    public InterestCircleMember findByUserIdAndCircleId(Long userId,int circleId) {
+        return interestCircleMemberMapper.findByUserIdAndCircleId(userId,circleId);
+    }
+
+    public String getNicknameByUserId(Long userId){
+        return interestCircleMemberMapper.getNicknameByUserId(userId);
     }
 
 //    @Override
@@ -86,5 +107,21 @@ public class InterestCircleServiceImpl implements InterestCircleService {
 //        Pageable pageable = PageRequest.of(page - 1, size); // 将页面从1开始转换为从0开始
 //        return interestCircleMapper.getMembersByCircleId(circleId, pageable);
 //    }
+
+//    @Override
+//    public Long getUserIdByNickname(String nickname) {
+//        return interestCircleMemberMapper.findByNickname(nickname).getId();
+//    }
+
+    @Override
+    public boolean isMember(int circleId,Long userId) {
+        InterestCircleMember member = interestCircleMemberMapper.existsByUserAndCircle(userId,circleId);
+        return member != null;
+    }
+
+    @Override
+    public List<Artist> getArtistsByCircleId(int circleId) {
+        return artistMapper.getArtistsByCircleId(circleId);
+    }
 
 }

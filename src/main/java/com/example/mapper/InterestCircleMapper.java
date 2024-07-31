@@ -2,7 +2,8 @@ package com.example.mapper;
 
 import com.example.entity.InterestCircle;
 import com.example.entity.InterestCircleMember;
-import com.example.entity.InterestCirclePost;
+//import com.example.entity.InterestCirclePost;
+import com.example.entity.Post;
 import org.apache.ibatis.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +12,6 @@ import java.util.List;
 
 @Mapper
 public interface InterestCircleMapper {
-
 
     @Select("SELECT * FROM interest_circle")
     List<InterestCircle> getAllCircles();
@@ -29,8 +29,8 @@ public interface InterestCircleMapper {
     @Insert("INSERT INTO interest_circle_member (circle_id, user_id,nickname) VALUES (#{circleId}, #{userId},#{nickname})")
     void addMember(InterestCircleMember member);
 
-    @Insert("INSERT INTO interest_circle_post (circle_id, user_id, content) VALUES (#{circleId}, #{userId}, #{content})")
-    void addPost(InterestCirclePost post);
+    @Insert("INSERT INTO interest_circle_post (circle_id, nickname, title, content) VALUES (#{circleId}, #{nickname},#{title}, #{content})")
+    void addPost(Post post);
 
     @Select("SELECT nickname From interest_circle_member WHERE circle_id = #{circleId}")
     List<String> findNicknameByCircle(@Param("circleId") int circleId);
@@ -39,7 +39,13 @@ public interface InterestCircleMapper {
     List<InterestCircleMember> getMembersByCircleId(@Param("circleId") int circleId);
 
     @Select("SELECT * FROM interest_circle_post WHERE circle_id = #{circleId}")
-    List<InterestCirclePost> getPostsByCircleId(@Param("circleId") int circleId);
+    //List<InterestCirclePost> getPostsByCircleId(@Param("circleId") int circleId);
+    List<Post> getPostsByCircleId(@Param("circleId") int circleId);
+
+    @Select("SELECT c.* FROM interest_circle c " +
+            "JOIN circle_artist ca ON c.id = ca.circle_id " +
+            "WHERE ca.artist_id = #{artistId}")
+    List<InterestCircle> getCirclesByArtistId(Long artistId);
 
 
 //    @Select("SELECT * FROM interest_circle_member WHERE circle_id = #{circleId}")

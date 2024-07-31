@@ -1,0 +1,162 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Post Details</title>-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--    <style>-->
+<!--        .post-details {-->
+<!--            margin: 20px;-->
+<!--        }-->
+<!--        .post-details h2, .post-details h3 {-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+<!--        .comment {-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .comment-form {-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+<!--        .post-actions {-->
+<!--            display: flex;-->
+<!--            gap: 10px; /* 调整按钮之间的间距 */-->
+<!--        }-->
+<!--    </style>-->
+<!--    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>-->
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="navbar">-->
+<!--    <span>Welcome, <span th:text="${session.username}"></span>!</span>-->
+<!--    <a href="/logout">Logout</a>-->
+<!--</div>-->
+<!--<div class="container post-details">-->
+<!--    <h2 th:text="${post.title}">Post Title</h2>-->
+<!--    <small class="text-muted">by <span th:text="${post.nickname}">Author</span></small>-->
+<!--    <small th:text="${post.createdAt}">Created At</small>-->
+<!--&lt;!&ndash;    <small th:if="${post.updatedAt != null}" th:text="'Edited At: ' + ${post.updatedAt}"></small>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; Edit Button - Only visible to the creator &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div th:if="${isCreator}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <button class="btn btn-primary" onclick="showEditModal()">Edit Post</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--    <h3>Content</h3>-->
+<!--    <p th:text="${post.content}">Post Content</p>-->
+
+<!--    <div class="post-meta">-->
+<!--        <span><i class="fa fa-eye"></i> Views: <span th:text="${post.views}"></span></span>-->
+<!--        <span><i class="fa fa-thumbs-up"></i> Likes: <span th:text="${post.likes}"></span></span>-->
+<!--        <span><i class="fa fa-star"></i> Favorites: <span th:text="${post.favorites}"></span></span>-->
+<!--        <span><i class="fa fa-comments"></i> Comments: <span th:text="${post.commentsCount}"></span></span>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Like and Favorite Buttons &ndash;&gt;-->
+<!--    <div class="post-actions d-flex gap-2">-->
+<!--        <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post">-->
+<!--            <button type="submit" class="btn btn-success">Like</button>-->
+<!--        </form>-->
+<!--        <form th:action="@{/posts/{id}/favorite(id=${post.id})}" method="post">-->
+<!--            <button type="submit" class="btn btn-warning">Favorite</button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Optional: Show attachments if they exist &ndash;&gt;-->
+<!--    <div th:if="${post.attachments != null}">-->
+<!--        <h4>Attachments</h4>-->
+<!--        <ul>-->
+<!--            <li th:each="attachment : ${post.attachments}">-->
+<!--                <a th:href="@{${attachment.url}}" th:text="${attachment.name}">Attachment</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+<!--    <h3>Comments</h3>-->
+<!--    <ul>-->
+<!--        <li class="comment" th:each="comment : ${comments}">-->
+<!--            <p th:text="${comment.content}">Comment Content</p>-->
+<!--            <small class="text-muted" th:text="${comment.createdAt}">Commented At</small>-->
+<!--        </li>-->
+<!--    </ul>-->
+
+<!--    <div class="comment-form">-->
+<!--        <h4>Add a Comment</h4>-->
+<!--        <form th:action="@{/posts/{id}/comments(id=${post.id})}" method="post">-->
+<!--            <input type="hidden" name="postId" th:value="${post.id}"/>-->
+<!--            <div class="form-group">-->
+<!--                <label for="commentContent">Comment</label>-->
+<!--                <textarea id="commentContent" name="content" class="form-control" required></textarea>-->
+<!--            </div>-->
+<!--            <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; Modal for editing the post &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel" aria-hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="modal-dialog" role="document">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="modal-content">&ndash;&gt;-->
+<!--&lt;!&ndash;                <form th:action="@{/posts/{id}/edit(id=${post.id})}" th:method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="modal-header">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h5 class="modal-title" id="editPostModalLabel">Edit Post</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span aria-hidden="true">&times;</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="modal-body">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <label for="postTitle">Title</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <input type="text" id="postTitle" class="form-control" th:value="${post.title}" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <label for="postContent">Content</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <textarea id="postContent" class="form-control" th:value="${post.content}" required></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="modal-footer">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button type="submit" class="btn btn-primary">Save changes</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--    &lt;!&ndash; Modal for the join circle dialog &ndash;&gt;-->
+<!--    <div class="modal fade" id="joinCircleModal" tabindex="-1" role="dialog" aria-labelledby="joinCircleModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog" role="document">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="joinCircleModalLabel">Join Circle</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    You have not joined this circle yet. Would you like to join it?-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <a th:href="@{/circles/{id}(id=${circleId})}" class="btn btn-primary">Join Circle</a>-->
+<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        // Check URL parameters and show the modal if necessary-->
+<!--        var urlParams = new URLSearchParams(window.location.search);-->
+<!--        var showDialog = urlParams.get('showJoinCircleDialog');-->
+<!--        var circleId = urlParams.get('circleId');-->
+
+<!--        if (showDialog === 'true') {-->
+<!--            $('#joinCircleModal').modal('show');-->
+<!--        }-->
+<!--    });-->
+<!--    // function showEditModal() {-->
+<!--    //     $('#editPostModal').modal('show');-->
+<!--    // }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

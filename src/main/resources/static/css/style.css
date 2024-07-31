@@ -19,6 +19,25 @@ body {
     align-items: center;
 }
 
+/* Add this to your CSS file */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+
 .navbar a {
     color: white;
     text-decoration: none;

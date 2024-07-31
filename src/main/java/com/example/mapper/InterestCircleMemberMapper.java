@@ -1,7 +1,7 @@
 package com.example.mapper;
 
 import com.example.entity.InterestCircleMember;
-import com.example.entity.InterestCirclePost;
+//import com.example.entity.InterestCirclePost;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.session.RowBounds;
 
@@ -22,6 +22,13 @@ public interface InterestCircleMemberMapper {
             "VALUES (#{circleId}, #{userId},#{nickname})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(InterestCircleMember member);
+
+    @Select("SELECT * FROM interest_circle_member WHERE user_id = #{userId} AND circle_id = #{circleId}")
+    InterestCircleMember findByUserIdAndCircleId(@Param("userId") Long userId, @Param("circleId") int circleId);
+
+    @Select("SELECT nickname FROM interest_circle_member WHERE user_id = #{userId}")
+    String getNicknameByUserId(@Param("userId") Long userId);
+
 
 
 }

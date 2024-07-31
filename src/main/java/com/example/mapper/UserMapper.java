@@ -30,4 +30,7 @@ public interface UserMapper {
     @Delete("DELETE FROM users")
     void deleteAll(); // 新增删除所有用户的方法
 
+    @Select("SELECT id FROM users WHERE username = #{username}")
+    Long getUserIdByUsername(String username);
+
 }

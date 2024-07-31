@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="/css/posts.css">
+</head>
+<body>
+<h1>Posts</h1>
+
+<div class="post-list">
+    <ul>
+        <li th:each="post : ${posts}">
+            <a th:href="@{'/posts/' + ${post.id}}">
+                <h3 th:text="${post.title}">Post Title</h3>
+                <p th:text="${post.createdAt}">Created At</p>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<a th:href="@{'/circles/' + ${circleId} + '/posts/new'}">Create New Post</a>
+
+<a href="/circles">Back to Interest Circles</a>
+</body>
+</html>

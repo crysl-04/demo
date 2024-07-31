@@ -3,7 +3,8 @@ package com.example.service;
 import com.example.entity.User;
 import com.example.mapper.InterestCircleMapper;
 import com.example.mapper.InterestCircleMemberMapper;
-import com.example.mapper.InterestCirclePostMapper;
+//import com.example.mapper.InterestCirclePostMapper;
+import com.example.mapper.PostMapper;
 import com.example.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class UserService {
     private InterestCircleMemberMapper memberMapper;
 
     @Autowired
-    private InterestCirclePostMapper postMapper;
+    private PostMapper postMapper;
 
     public User findById(Long id) {
         return userMapper.findById(id);
@@ -51,5 +52,9 @@ public class UserService {
 
     public void setUserMapper(UserMapper mockUserMapper) {
         this.userMapper = mockUserMapper;
+    }
+
+    public Long getUserIdByUsername(String username) {
+        return userMapper.getUserIdByUsername(username);
     }
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Detail</title>
+    <link rel="stylesheet" href="/css/post_detail.css">
+</head>
+<body>
+
+<!-- 显示帖子图片 -->
+<!--<img th:if="${post.imageUrl != null}" th:src="@{${post.imageUrl}}" alt="Post Image">-->
+<div class="post-container">
+    <h1 th:text="${post.title}">Post Title</h1>
+    <p th:text="${post.content}">Post Content</p>
+    <!-- Comments section -->
+    <img th:if="${post.imageUrl != null}" th:src="@{${post.imageUrl}}" alt="Post Image">
+
+    <div class="comments-section">
+        <h2>Comments</h2>
+        <ul>
+            <li th:each="comment : ${comments}">
+                <p th:text="${comment.content}">Comment Content</p>
+                <small th:text="${comment.createdAt}">Created At</small>
+            </li>
+        </ul>
+        <!-- Comment form -->
+        <form th:action="@{/posts/{postId}/comments(postId=${post.id})}" method="post">
+            <textarea name="content" placeholder="Add a comment"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <a href="/circles">Back to Interest Circles</a>
+</div>
+
+</body>
+</html>
