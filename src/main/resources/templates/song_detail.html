@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${song.title}">Song Details</title>
+    <link rel="stylesheet" href="/css/song_detail.css">
+</head>
+<body>
+<h1 th:text="${song.title}">Song Title</h1>
+<p>Lyricist: <span th:text="${song.lyricist}">Song Lyricist</span></p>
+<p>Composer: <span th:text="${song.composer}">Song Composer</span></p>
+
+<h2>Lyrics</h2>
+
+<div class="lyrics-container">
+    <!-- 左侧歌词部分 -->
+    <div class="lyrics-section">
+        <ul class="lyrics-nav">
+            <li><a href="#" id="left-original-lyrics-nav" class="active">Original Lyrics</a></li>
+        </ul>
+
+        <div id="left-original-lyrics" class="lyrics-content active">
+            <pre th:text="${song.originalLyrics}">Original Lyrics</pre>
+        </div>
+
+    </div>
+
+    <!-- 右侧歌词部分 -->
+    <div class="lyrics-section">
+        <ul class="lyrics-nav">
+            <li><a href="#" id="right-chinese-lyrics-nav">Chinese</a></li>
+            <li><a href="#" id="right-pinyin-lyrics-nav">Sound</a></li>
+            <li><a href="#" id="right-none-lyrics-nav">Test</a></li> <!-- 添加的空白选项 -->
+
+        </ul>
+
+
+        <div id="right-chinese-lyrics" class="lyrics-content">
+            <pre th:text="${song.chineseLyrics}">Chinese Lyrics</pre>
+        </div>
+        <div id="right-pinyin-lyrics" class="lyrics-content">
+            <pre th:text="${song.pinyinLyrics}">Pinyin Lyrics</pre>
+        </div>
+        <div id="right-none-lyrics" class="lyrics-content"> <!-- 空白部分 -->
+            <pre></pre>
+        </div>
+    </div>
+</div>
+
+<a th:href="@{'/circles/' + ${circleId} + '/albums/' + ${albumId}}" class="btn-back">Back to Album</a>
+<a th:href="@{'/circles/' + ${circleId}}" class="btn-back">Back to Circle</a>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function setLyricsNav(navLinksSelector, contentDivsSelector) {
+            const navLinks = document.querySelectorAll(navLinksSelector);
+            const contentDivs = document.querySelectorAll(contentDivsSelector);
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Remove active class from all links
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    // Add active class to the clicked link
+                    this.classList.add('active');
+
+                    // Hide all content divs
+                    contentDivs.forEach(div => div.classList.remove('active'));
+                    // Show the content div corresponding to the clicked link
+                    const targetId = this.id.replace('-nav', '');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        }
+
+        // 初始化左右两边的导航
+        setLyricsNav('.lyrics-nav a[id^="left"]', '.lyrics-section .lyrics-content[id^="left"]');
+        setLyricsNav('.lyrics-nav a[id^="right"]', '.lyrics-section .lyrics-content[id^="right"]');
+    });
+</script>
+</body>
+</html>

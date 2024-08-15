@@ -64,6 +64,11 @@
             <version>3.0.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.security</groupId>-->
 <!--            <artifactId>spring-security-test</artifactId>-->
@@ -93,6 +98,11 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version> <!-- or the version compatible with your environment -->
             <scope>provided</scope> <!-- or 'compile' if not provided by your container -->
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- Maven -->
 <!--        <dependency>-->

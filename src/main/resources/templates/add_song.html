@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Song</title>
+    <link rel="stylesheet" href="/css/add_song.css">
+</head>
+<body>
+<h1>Add New Song</h1>
+<form th:action="@{'/circles/' + ${circle_id} + '/albums/' + ${album_id} + '/addsong'}" method="post">
+    <label for="title">Song Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="lyricist">Lyricist:</label>
+    <input type="text" id="lyricist" name="lyricist">
+
+    <label for="composer">Composer:</label>
+    <input type="text" id="composer" name="composer">
+
+    <label for="original_lyrics">Original Lyrics:</label>
+    <textarea id="original_lyrics" name="original_lyrics"></textarea>
+
+    <label for="chinese_lyrics">Chinese Lyrics:</label>
+    <textarea id="chinese_lyrics" name="chinese_lyrics"></textarea>
+
+    <label for="pinyin_lyrics">Sound Lyrics:</label>
+    <textarea id="pinyin_lyrics" name="pinyin_lyrics"></textarea>
+
+    <button type="submit">Add Song</button>
+</form>
+
+<a th:href="@{'/circles/' + ${circle_id} + '/albums/' + ${album_id} }" class="btn-back">Back to Album</a>
+</body>
+</html>

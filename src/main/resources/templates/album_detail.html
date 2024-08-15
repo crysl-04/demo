@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${album.name}">Album Details</title>
+    <link rel="stylesheet" href="/css/album_detail.css">
+</head>
+<body>
+<div th:if="${errorMessage}" class="alert alert-warning"  id="flashMessage">
+    <p th:text="${errorMessage}"></p>
+</div>
+<h1 th:text="${album.name}">Album Name</h1>
+<h3 th:text="${album.description}"> Album Description</h3>
+
+<h2>Songs</h2>
+<ul class="song-list">
+    <li th:each="song : ${songs}" class="song-item">
+        <a th:href="@{'/circles/' + ${circle_id} + '/albums/' + ${album.id} + '/songs/' + ${song.id}}"  class="song-link">
+            <p th:text="${song.title}" class="song-name">Song Title</p>
+        </a>
+    </li>
+</ul>
+
+<a th:href="@{'/circles/' + ${circle_id} + '/albums/' + ${album.id} + '/addsong'}" class="btn">Add New Song</a>
+
+<a th:href="@{'/circles/' + ${circle_id} + '?tab=albums'}" class="btn">Back</a>
+
+
+<script>
+    // 在页面加载时执行
+    window.onload = function() {
+        // 获取提示信息的元素
+        var flashMessage = document.getElementById("flashMessage");
+
+        // 如果元素存在，设置5秒后隐藏
+        if (flashMessage) {
+            setTimeout(function() {
+                flashMessage.style.display = "none";
+            }, 3000);
+        }
+    }
+</script>
+
+</body>
+</html>

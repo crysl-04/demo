@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create New Album</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/album_create.css}">
+
+</head>
+<body>
+<h1>Create New Album</h1>
+
+<!-- 错误消息显示 -->
+<div th:if="${error}">
+    <p th:text="${error}" style="color: red;"></p>
+</div>
+
+<!-- 创建新专辑的表单 -->
+<form th:action="@{/circles/{circleId}/albums/save(circleId=${circleId})}" method="post" enctype="multipart/form-data">
+    <label for="albumName">Album Name:</label>
+    <input type="text" id="albumName" name="name" placeholder="Enter album name" required>
+
+    <br><br>
+
+    <label for="albumImage">Album Image:</label>
+    <input type="file" id="albumImage" name="image" required>
+
+    <br><br>
+
+    <label for="albumDescription">Album Description:</label>
+    <textarea id="albumDescription" name="description" placeholder="Enter album description" rows="5"></textarea>
+
+    <br><br>
+
+    <button type="submit">Save Album</button>
+</form>
+
+<!-- 返回按钮 -->
+<br>
+<a th:href="@{/circles/{circleId}(circleId=${circleId})}">Back to Circle</a>
+</body>
+</html>

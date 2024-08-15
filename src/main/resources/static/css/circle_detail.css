@@ -1,138 +1,7 @@
-/*body {*/
-/*    font-family: Arial, sans-serif;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    background-color: #f4f4f4;*/
-/*}*/
-
-/*.navbar {*/
-/*    background-color: #333;*/
-/*    color: white;*/
-/*    padding: 15px;*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.navbar a {*/
-/*    color: white;*/
-/*    text-decoration: none;*/
-/*    margin-left: 20px;*/
-/*}*/
-
-/*h1, h2, h3 {*/
-/*    color: #333;*/
-/*}*/
-
-/*#circle-detail-container {*/
-/*    margin: 20px;*/
-/*    padding: 20px;*/
-/*    background-color: white;*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-/*}*/
-
-/*.grid-container {*/
-/*    display: grid;*/
-/*    grid-template-columns: 1fr 1fr;*/
-/*    grid-template-rows: auto auto;*/
-/*    gap: 20px;*/
-/*}*/
-
-/*.grid-item {*/
-/*    background-color: #fff;*/
-/*    padding: 20px;*/
-/*    border: 1px solid #ddd;*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-/*}*/
-
-/*.grid-item h2 {*/
-/*    margin-top: 0;*/
-/*}*/
-
-/*.grid-item p {*/
-/*    margin: 10px 0;*/
-/*}*/
-
-/*.grid-item ul {*/
-/*    list-style-type: none;*/
-/*    padding: 0;*/
-/*}*/
-
-/*.grid-item ul li {*/
-/*    background-color: #f9f9f9;*/
-/*    margin-bottom: 10px;*/
-/*    padding: 10px;*/
-/*    border: 1px solid #ddd;*/
-/*}*/
-
-/*.grid-item form {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*}*/
-
-/*.grid-item form textarea {*/
-/*    margin-bottom: 10px;*/
-/*}*/
-
-/*button {*/
-/*    padding: 10px;*/
-/*    background-color: #28a745;*/
-/*    color: white;*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*button:hover {*/
-/*    background-color: #218838;*/
-/*}*/
-
-/*a {*/
-/*    display: block;*/
-/*    margin: 20px 0;*/
-/*    text-align: center;*/
-/*    color: #333;*/
-/*    text-decoration: none;*/
-/*}.pagination {*/
-/*     margin-top: 10px; !* 可选：分页控件与列表内容之间的上边距 *!*/
-/*     display: flex;*/
-/*     justify-content: center; !* 让分页控件居中显示 *!*/
-/*     align-items: center; !* 垂直居中 *!*/
-/* }*/
-
-/*.pagination ul {*/
-/*    list-style-type: none; !* 去除分页控件的默认列表样式 *!*/
-/*    padding: 0;*/
-/*    margin: 0;*/
-/*}*/
-
-/*.pagination ul li {*/
-/*    display: inline-block; !* 让分页项水平显示 *!*/
-/*    margin-right: 5px; !* 可选：调整分页项之间的间距 *!*/
-/*}*/
-
-/*.pagination ul li:first-child {*/
-/*    margin-left: 0; !* 可选：第一个分页项无需左边距 *!*/
-/*}*/
-
-/*.pagination ul li.active {*/
-/*    font-weight: bold; !* 可选：当前页码加粗显示 *!*/
-/*}*/
-
-/*.pagination ul li a {*/
-/*    text-decoration: none; !* 去除链接的下划线 *!*/
-/*    padding: 5px 10px; !* 可选：设置分页链接的内边距 *!*/
-/*    background-color: #f0f0f0; !* 可选：设置分页链接的背景色 *!*/
-/*    color: #333; !* 可选：设置分页链接的文字颜色 *!*/
-/*    border: none; !* 去除分页链接的边框 *!*/
-/*}*/
-
-/*.pagination ul li a:hover {*/
-/*    background-color: #e0e0e0; !* 可选：鼠标悬停时的背景色 *!*/
-/*}*/
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #f0f0f5;
+
     color: #333;
     margin: 0;
     padding: 0;
@@ -143,7 +12,7 @@ body {
 
 .navbar {
     width: 100%;
-    background-color: #333;
+    background-color: #92a8d1;
     padding: 10px 0;
     display: flex;
     justify-content: center;
@@ -206,7 +75,7 @@ h1 {
 }
 
 a {
-    color: #0066cc;
+    color: black;
     text-decoration: none;
 }
 
@@ -215,7 +84,7 @@ a:hover {
 }
 
 button {
-    background-color: #0066cc;
+    background-color: #f4c7c3;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -225,5 +94,165 @@ button {
 }
 
 button:hover {
-    background-color: #005bb5;
+    background-color: #c6c6fb;
+}
+
+/* 标签区域样式 */
+.tag-list {
+    background-color: #f0f8ff; /* 淡蓝色背景 */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.tag-list h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.tag-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tag-list ul li {
+    margin-bottom: 5px;
+}
+
+.tag-list ul li a {
+    color: #007bff; /* 蓝色文本 */
+    text-decoration: none;
+}
+
+.tag-list ul li a:hover {
+    text-decoration: underline;
+}
+
+/* 帖子区域样式 */
+.post-list {
+    background-color: #fff; /* 白色背景 */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd; /* 灰色边框 */
+}
+
+.post-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.post-list ul li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.post-list ul li a {
+    color: #333; /* 深灰色文本 */
+    text-decoration: none;
+}
+
+.post-list ul li a:hover {
+    text-decoration: underline;
+}
+
+.post-list ul li small {
+    display: block;
+    color: #666; /* 较浅的灰色 */
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
+#posts {
+    display: flex;
+    flex-direction: row; /* 水平排列 */
+    gap: 20px; /* 容器之间的间距 */
+}
+
+.tag-list {
+    flex: 1; /* 占用一个部分 */
+    max-width: 200px; /* 最大宽度限制 */
+}
+
+.post-list {
+    flex: 3; /* 占用更多空间 */
+}
+
+/* Add styles for the container */
+.create-buttons {
+    display: flex;
+    gap: 10px; /* Adjust spacing between buttons as needed */
+    margin-top: 20px; /* Space above buttons */
+}
+
+/* Style for individual buttons */
+.create-post, .create-tag {
+    /* Add common button styles here if needed */
+}
+
+.btn-create-post, .btn-create-tag {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f4c7c3; /* Adjust color as needed */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn-create-post:hover, .btn-create-tag:hover {
+    background-color: #c6c6fb; /* Adjust hover color as needed */
+}
+
+/* styles.css */
+.album-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: 20px; /* Space between items */
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    justify-content: flex-start; /* Align items to the start of the line */
+
+}
+
+.album-item {
+    flex: 1 1 calc(50% - 20px); /* Two items per row with spacing */
+    background-color: #fff; /* Background color */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Hide overflow */
+    text-align: center; /* Center align content */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    margin-bottom: 20px; /* Space below items */
+}
+
+.album-item:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+.album-image {
+    margin-top: 20px; /* Space below items */
+
+    width: 20%; /* Ensure image fills the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the container while maintaining aspect ratio */
+}
+
+.album-link {
+    text-decoration: none; /* Remove underline from links */
+}
+
+.album-name {
+    font-size: 18px; /* Font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Text color */
+    margin-top: 8px; /* Space between image and text */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.album-name:hover {
+    color: #007BFF; /* Change color on hover */
 }

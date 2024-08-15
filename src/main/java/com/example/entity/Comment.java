@@ -3,6 +3,13 @@ package com.example.entity;
 import java.time.LocalDateTime;
 
 public class Comment {
+    private long id;
+    private String content;
+    private LocalDateTime createdAt;
+    private int postId;
+    private long userId;
+    private String membername;
+
     public Long getId() {
         return id;
     }
@@ -35,11 +42,7 @@ public class Comment {
         this.postId = postId;
     }
 
-    private Long id;
-    private String content;
-    private LocalDateTime createdAt;
-    private int postId;
-    private Long userId;
+
 
     public Long getUserId() {
         return userId;
@@ -50,6 +53,25 @@ public class Comment {
     }
 
 
-    // Getters and setters
-    // ...
+    public String getMembername() {
+        return membername;
+    }
+
+    public void setMembername(String membername) {
+        this.membername = membername;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", createdAt=" + createdAt +
+                ", postId=" + postId +
+                ", userId=" + userId +
+                ", membername='" + membername + '\'' +
+                '}';
+    }
+
+
 }

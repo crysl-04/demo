@@ -1,8 +1,9 @@
+/*circles edit_circle home loginform joinform registerform registersuccess*/
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f0f0f5;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +11,7 @@ body {
 }
 
 .navbar {
-    background-color: #333;
+    background-color: #92a8d1;
     color: white;
     padding: 15px;
     width: 100%;
@@ -146,7 +147,7 @@ form input[type="text"], form textarea {
 form button {
     margin: 5px 0;
     padding: 10px;
-    background-color: #28a745;
+    background-color: #f4c7c3;
     color: white;
     border: none;
     cursor: pointer;
@@ -154,7 +155,7 @@ form button {
 }
 
 form button:hover {
-    background-color: #218838;
+    background-color: #c2eacb;
 }
 
 a {
@@ -184,6 +185,26 @@ nav ul li a {
 
 nav ul li a:hover {
     text-decoration: underline;
+}
+
+/* 添加一个按钮样式 */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #f4c7c3;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    text-underline: none;
+}
+
+.btn:hover {
+    background-color: #c6c6fb;
 }
 
 

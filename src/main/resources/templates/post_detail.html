@@ -7,21 +7,25 @@
     <link rel="stylesheet" href="/css/post_detail.css">
 </head>
 <body>
+<div th:if="${errorMessage}" class="alert alert-warning" id="flashMessage">
+    <p th:text="${errorMessage}"></p>
+</div>
 
-<!-- 显示帖子图片 -->
 <!--<img th:if="${post.imageUrl != null}" th:src="@{${post.imageUrl}}" alt="Post Image">-->
 <div class="post-container">
     <h1 th:text="${post.title}">Post Title</h1>
-    <p th:text="${post.content}">Post Content</p>
-    <!-- Comments section -->
-    <img th:if="${post.imageUrl != null}" th:src="@{${post.imageUrl}}" alt="Post Image">
+    <pre style="font-size: 16px" th:text="${post.content}">Post Content</pre>
+    <div class="image-container">
+    <img th:src="@{${post.imageUrl}}" alt="Post Image">
+    </div>
 
     <div class="comments-section">
         <h2>Comments</h2>
+
         <ul>
             <li th:each="comment : ${comments}">
                 <p th:text="${comment.content}">Comment Content</p>
-                <small th:text="${comment.createdAt}">Created At</small>
+                <small>By <span th:text="${comment.membername}">Comment Membername</span> on <span th:text="${comment.createdAt}">Created At</span></small>
             </li>
         </ul>
         <!-- Comment form -->
@@ -32,6 +36,19 @@
     </div>
     <a href="/circles">Back to Interest Circles</a>
 </div>
+<script>
+    // 在页面加载时执行
+    window.onload = function() {
+        // 获取提示信息的元素
+        var flashMessage = document.getElementById("flashMessage");
 
+        // 如果元素存在，设置5秒后隐藏
+        if (flashMessage) {
+            setTimeout(function() {
+                flashMessage.style.display = "none";
+            }, 3000);
+        }
+    }
+</script>
 </body>
 </html>

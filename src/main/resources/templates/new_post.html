@@ -18,6 +18,12 @@
         <textarea id="content" name="content" required></textarea>
     </div>
     <div>
+        <label for="tags">Select Tags:</label>
+        <select id="tags" name="tagIds" multiple>
+            <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>
+        </select>
+    </div>
+    <div>
         <label for="image">Image:</label>
         <input type="file" id="image" name="image">
     </div>

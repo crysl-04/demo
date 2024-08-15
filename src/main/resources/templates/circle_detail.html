@@ -1,75 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>Interest Circle Detail</title>-->
-<!--    <link rel="stylesheet" href="/css/circle_detail.css">-->
-<!--    <div class="navbar">-->
-<!--        <span>Welcome, <span th:text="${session.username}"></span>!</span>-->
-<!--        <a href="/logout">Logout</a>-->
-<!--    </div>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1 th:text="${circle.name}">Circle Name</h1>-->
-
-<!--<div id="circle-detail-container">-->
-<!--    <div class="grid-container">-->
-<!--        <div class="grid-item description">-->
-<!--            <h2>Description</h2>-->
-<!--            <p th:text="${circle.description}">Circle Description</p>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; 新增艺人板块 &ndash;&gt;-->
-<!--        <div class="grid-item artists">-->
-<!--            <h2>Artists</h2>-->
-<!--            <ul>-->
-<!--                <li th:each="artist : ${artists}">-->
-<!--                    <a th:href="@{'/artists/' + ${artist.id} + '?circleId=' + ${circle.id}}">-->
-<!--                        <p th:text="${artist.name}">Artist Name</p>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
-
-<!--        <div class="grid-item members">-->
-<!--            <h2>Members</h2>-->
-<!--            <ul>-->
-<!--                <li th:each="member : ${members}">-->
-<!--                    <p th:text="${member}">User Name</p>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
-
-<!--        <div class="grid-item posts">-->
-<!--            <h2>Posts</h2>-->
-<!--            <ul>-->
-<!--                <li th:each="post : ${posts}">-->
-<!--                    <a th:href="@{'/posts/' + ${post.id}}">-->
-<!--                        <p th:text="${post.title}">Post Title</p>-->
-<!--                        <small th:text="${post.createdAt}">Created At</small>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
-
-<!--        <div class="grid-item actions">-->
-<!--            <h3>Join Circle</h3>-->
-<!--            <form th:action="@{/circles/joinForm/{circleId}(circleId=${circle.id})}" method="get">-->
-<!--                <button type="submit">Join</button>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            &lt;!&ndash; Display the message if exists &ndash;&gt;-->
-<!--            <p th:if="${message}" th:text="${message}"></p>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<a href="/circles">Back to Interest Circles</a>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,21 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interest Circle Detail</title>
     <link rel="stylesheet" href="/css/circle_detail.css">
+    <style>
+        /* Basic styling for tabs */
+        .tabcontent {
+            display: none;
+        }
+        .tablink.active {
+            background-color: #ddd;
+        }
+    </style>
     <div class="navbar">
         <span>Welcome, <span th:text="${session.username}"></span>!</span>
         <a href="/logout">Logout</a>
     </div>
 </head>
 <body>
+<div th:if="${errorMessage}" class="alert alert-warning"  id="flashMessage">
+    <p th:text="${errorMessage}"></p>
+</div>
+
 <h1 th:text="${circle.name}">Circle Name</h1>
 
 <div class="nav-buttons">
     <button class="tablink" onclick="openTab(event, 'description')">Description</button>
     <button class="tablink" onclick="openTab(event, 'artists')">Artists</button>
     <button class="tablink" onclick="openTab(event, 'members')">Members</button>
+    <button class="tablink" onclick="openTab(event,'albums')">Album</button>
     <button class="tablink" onclick="openTab(event, 'posts')">Posts</button>
+    <button class="tablink" onclick="openTab(event, 'activity')">Activity</button>
     <button class="tablink" onclick="openTab(event, 'join')">Join Circle</button>
 </div>
+
+
+
 
 <div id="description" class="tabcontent">
     <h2>Description</h2>
@@ -118,23 +64,78 @@
     </ul>
 </div>
 
-<div id="posts" class="tabcontent">
-    <h2>Posts</h2>
-    <ul>
-        <li th:each="post : ${posts}">
-            <a th:href="@{'/posts/' + ${post.id}}">
-                <p th:text="${post.title}">Post Title</p>
-                <small th:text="${post.createdAt}">Created At</small>
+<!-- Album Tab Content -->
+<div id="albums" class="tabcontent">
+    <h2>Albums</h2>
+    <ul class="album-list">
+        <li th:each="album : ${albums}" class="album-item">
+            <img th:src="@{${album.imageUrl}}" class="album-image">
+            <a th:href="@{'/circles/' + ${circle.id} + '/albums/' + ${album.id}}" class="album-link">
+                <p th:text="${album.name}" class="album-name">Album Name</p>
             </a>
         </li>
     </ul>
-
-    <!-- Add the "Create New Post" button -->
-    <div class="create-post">
-        <a th:href="@{/circles/{circleId}/posts/new(circleId=${circle.id})}" class="btn-create-post">
-            Create New Post
+    <div class="create-album">
+        <a th:href="@{/circles/{circleId}/albums/create(circleId=${circle.id})}" class="btn-create-post">
+            Create New Album
         </a>
     </div>
+</div>
+
+
+
+<div id="posts" class="tabcontent">
+    <h2>Posts</h2>
+
+    <!-- 标签展示区域 -->
+    <div class="tag-list">
+        <h3>Tags</h3>
+        <ul>
+            <li th:each="tag : ${tags}">
+                <a th:href="@{'/circles/' + ${circle.id} + '/tags/' + ${tag.id} + '/posts'}" th:text="${tag.name}">Tag Name</a></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 帖子展示区域 -->
+    <div class="post-list">
+        <ul>
+            <li th:each="post : ${posts}">
+                <a th:href="@{'/posts/' + ${post.id}}">
+                    <p th:text="${post.title}">Post Title</p>
+                    <small th:text="${post.createdAt}">Created At</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="create-buttons">
+        <!-- Create New Post Button -->
+        <div class="create-post">
+            <a th:href="@{/circles/{circleId}/posts/new(circleId=${circle.id})}" class="btn-create-post">
+                Create New Post
+            </a>
+        </div>
+
+        <!-- Create New Tag Button -->
+        <div class="create-tag">
+            <a th:href="@{/circles/{circleId}/tags/new(circleId=${circle.id})}" class="btn-create-tag">
+                Create New Tag
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="activity" class="tabcontent">
+    <h2>Activity</h2>
+    <ul id="activityList">
+        <li th:each="detail : ${activityDetails}">
+            User ID: <span th:text="${detail.userId}"></span> - Activity Score: <span th:text="${detail.score}"></span>
+        </li>
+    </ul>
+
 </div>
 
 <div id="join" class="tabcontent">
@@ -165,6 +166,51 @@
 
     // 默认打开第一个标签
     document.getElementsByClassName("tablink")[0].click();
+
+    // 从 URL 查询参数获取要显示的选项卡
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabToOpen = urlParams.get('tab');
+    if (tabToOpen) {
+        openTab({ currentTarget: document.querySelector(`.tablink[onclick*="${tabToOpen}"]`) }, tabToOpen);
+    }
+
+    function fetchActivitySummary(circleId) {
+        fetch(`/circles/${circleId}/activity`)
+            .then(response => response.json())
+            .then(data => {
+                const activityList = document.getElementById('activityList');
+                activityList.innerHTML = ''; // 清空现有列表
+
+                // 根据数据生成列表项
+                data.forEach(detail => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `User ID: ${detail.userId} - Activity Score: ${detail.score}`;
+                    activityList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error fetching activity summary:', error));
+    }
+
+    // 假设你有一个方法可以获取当前兴趣圈的 ID
+    const circleId = [[${circle.id}]];
+    fetchActivitySummary(circleId);
+
+
+</script>
+
+<script>
+    // 在页面加载时执行
+    window.onload = function() {
+        // 获取提示信息的元素
+        var flashMessage = document.getElementById("flashMessage");
+
+        // 如果元素存在，设置5秒后隐藏
+        if (flashMessage) {
+            setTimeout(function() {
+                flashMessage.style.display = "none";
+            }, 3000);
+        }
+    }
 </script>
 </body>
 </html>

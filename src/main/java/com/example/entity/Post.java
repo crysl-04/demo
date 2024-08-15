@@ -1,18 +1,25 @@
 package com.example.entity;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class Post {
-    private Long id;
+    private int id;
     private String title;
     private String content;
+    private LocalDateTime createdAt;
+    private int circleId;
+    private String imageUrl;
+    private List<Comment> comments;
+    private Long userId;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -32,6 +39,15 @@ public class Post {
         this.content = content;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -48,13 +64,6 @@ public class Post {
         this.circleId = circleId;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public List<Comment> getComments() {
         return comments;
@@ -64,10 +73,22 @@ public class Post {
         this.comments = comments;
     }
 
-    private LocalDateTime createdAt;
-    private int circleId;
-    private String imageUrl;
-    private List<Comment> comments;
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "post_tags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tags;
+
 
     // Getters and setters
     // ...

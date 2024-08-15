@@ -24,7 +24,7 @@ public interface InterestCircleService {
     InterestCircleMember findByNickname(String nickname);
 
     InterestCircleMember findByUserIdAndCircleId(Long userId,int circleId);
-    String getNicknameByUserId(Long userId);
+//    String getNicknameByUserId(Long userId);
     boolean isMember(int circleId, Long userId);
 
     List<Artist> getArtistsByCircleId(int circleId);

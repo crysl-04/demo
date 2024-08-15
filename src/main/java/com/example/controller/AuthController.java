@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.entity.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AuthController {
@@ -88,9 +90,26 @@ public class AuthController {
      * @param session HttpSession 对象，用于管理会话
      * @return 重定向到主页
      */
-    @GetMapping("/logout")
+    /*@GetMapping("/logout")
     public String logout(HttpSession session) {
+
+        session.invalidate();
+        return "redirect:/";
+    }*/
+    @GetMapping("/logout")
+    public String logout(HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            // 如果用户未登录，设置提示信息
+            redirectAttributes.addFlashAttribute("errorMessage", "您并没有登录！");
+
+            // 重定向到来源页面
+            String referer = request.getHeader("Referer");
+            return "redirect:" + (referer != null ? referer : "/");
+        }
+
         session.invalidate();
         return "redirect:/";
     }
+
 }

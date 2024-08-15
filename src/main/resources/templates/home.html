@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<div th:if="${errorMessage}" class="alert alert-warning" id="flashMessage">
+    <p th:text="${errorMessage}"></p>
+</div>
 <!-- 导航栏或顶部欢迎信息 -->
 <div class="navbar">
     <span>Welcome, <span th:text="${session.username}"></span>!</span>
@@ -15,13 +18,29 @@
 <h1>Welcome to the Interest Circle</h1>
 <nav>
     <ul>
-        <li><a href="/circles">Interest Circles</a></li>
-        <li><a href="/register">Register</a></li>
-        <li><a href="/login">Login</a></li>
+        <li><a href="/circles" class="btn">Interest Circles</a></li>
+        <!-- <li><a href="/register" class="btn">Register</a></li> -->
+        <li><a href="/login" class="btn">Login</a></li>
+
 
     </ul>
 </nav>
 <div>
 </div>
+
+<script>
+    // 在页面加载时执行
+    window.onload = function() {
+        // 获取提示信息的元素
+        var flashMessage = document.getElementById("flashMessage");
+
+        // 如果元素存在，设置5秒后隐藏
+        if (flashMessage) {
+            setTimeout(function() {
+                flashMessage.style.display = "none";
+            }, 3000);
+        }
+    }
+</script>
 </body>
 </html>

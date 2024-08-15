@@ -11,6 +11,11 @@
     </div>
 </head>
 <body>
+
+<div th:if="${errorMessage}" class="alert alert-warning" id="flashMessage">
+    <p th:text="${errorMessage}"></p>
+</div>
+
 <h1>Interest Circles</h1>
 
 <div class="container">
@@ -40,8 +45,22 @@
         </form>
     </div>
 </div>
+<a href="/">Back to Home</a>
 
+<script>
+    // 在页面加载时执行
+    window.onload = function() {
+        // 获取提示信息的元素
+        var flashMessage = document.getElementById("flashMessage");
 
+        // 如果元素存在，设置5秒后隐藏
+        if (flashMessage) {
+            setTimeout(function() {
+                flashMessage.style.display = "none";
+            }, 3000);
+        }
+    }
+</script>
 
 </body>
 </html>

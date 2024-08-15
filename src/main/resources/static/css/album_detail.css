@@ -1,0 +1,163 @@
+/* album_detail.css */
+
+/* 设置页面的整体样式 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    background-color: #f0f0f5;
+    color: #333;
+}
+
+/* 专辑标题样式 */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #4A90E2;
+    text-align: center;
+    font-family: 'Georgia', serif;
+}
+
+/* 专辑信息样式 */
+p {
+    font-size: 1.2em;
+    margin: 5px 0;
+    text-align: center;
+    color: #555;
+}
+
+/* 歌曲列表标题样式 */
+h2 {
+    font-size: 2em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 2px solid #4A90E2;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+/* 新增 h3 样式 */
+h3 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #90adf4; /* 和 h1 的颜色一致 */
+    text-align: center;
+    font-family: 'Georgia', serif;
+}
+
+/* 歌曲列表样式 */
+ul {
+    flex: 1 1 calc(50% - 20px); /* Two items per row with spacing */
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* 每首歌的卡片样式 */
+ul li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    font-family: 'Georgia', serif;
+}
+
+/* 悬停效果 */
+ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 歌曲封面 */
+ul li img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* 单个歌曲项的标题样式 */
+ul li p:first-child {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0 5px;
+}
+
+/* 歌曲艺术家名称样式 */
+ul li p:last-child {
+    font-size: 1.2em;
+    color: #888;
+}
+
+/* 返回按钮样式 */
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4A90E2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #357ABD;
+    transform: translateY(-3px);
+}
+
+.song-item {
+    flex: 1 1 calc(50% - 20px); /* Two items per row with spacing */
+    background-color: #fff; /* Background color */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Hide overflow */
+    text-align: center; /* Center align content */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    margin-bottom: 20px; /* Space below items */
+}
+
+.song-item:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+.song-link {
+    text-decoration: none; /* Remove underline from links */
+}
+
+.song-name {
+    font-size: 18px; /* Font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Text color */
+    margin-top: 8px; /* Space between image and text */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.song-name:hover {
+    color: #007BFF; /* Change color on hover */
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    ul li p:first-child {
+        font-size: 1.2em;
+    }
+}

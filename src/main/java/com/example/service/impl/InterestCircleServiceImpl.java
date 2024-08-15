@@ -92,9 +92,9 @@ public class InterestCircleServiceImpl implements InterestCircleService {
         return interestCircleMemberMapper.findByUserIdAndCircleId(userId,circleId);
     }
 
-    public String getNicknameByUserId(Long userId){
-        return interestCircleMemberMapper.getNicknameByUserId(userId);
-    }
+//    public String getNicknameByUserId(Long userId){
+//        return interestCircleMemberMapper.getNicknameByUserId(userId);
+//    }
 
 //    @Override
 //    public Page<InterestCirclePost> getPostsByCircleId(int circleId, int page, int size) {

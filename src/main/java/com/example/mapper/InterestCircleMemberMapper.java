@@ -26,8 +26,12 @@ public interface InterestCircleMemberMapper {
     @Select("SELECT * FROM interest_circle_member WHERE user_id = #{userId} AND circle_id = #{circleId}")
     InterestCircleMember findByUserIdAndCircleId(@Param("userId") Long userId, @Param("circleId") int circleId);
 
-    @Select("SELECT nickname FROM interest_circle_member WHERE user_id = #{userId}")
-    String getNicknameByUserId(@Param("userId") Long userId);
+    @Select("SELECT COUNT(*) > 0 FROM interest_circle_member WHERE user_id = #{userId} AND circle_id = #{circleId}")
+    boolean isUserInCircle(Long userId, Integer circleId);
+
+
+    @Select("SELECT * FROM interest_circle_member WHERE circle_id = #{circleId}")
+    List<InterestCircleMember> findMembersByCircleId(@Param("circleId") int circleId);
 
 
 
